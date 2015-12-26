@@ -5,9 +5,10 @@
 'use strict';
 
 //Disable console
+/*
 console.log = function () {};
 console.info = function () {};
-
+*/
 var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 
 var BugSmash = {};
@@ -146,8 +147,8 @@ BugSmash.Core = (function () {
 	return {
 		start: function () {
 			var th = this;
-			//window.socket = io.connect('http://192.168.1.233:8005');
-			window.socket = io.connect('http://bugsmash.wedinweb.no');
+			window.socket = io.connect('http://10.0.0.48:8005');
+			//window.socket = io.connect('http://bugsmash.wedinweb.no');
 			//Eventhandler og notifications
 			th.pubsub = new PubSub();
 			th.notify = new Notifications(socket);
@@ -155,8 +156,8 @@ BugSmash.Core = (function () {
 			th.settings = (function () {
 				return {
 					screenY: window.screenY,
-					//root: 'http://192.168.1.233:3001'
-					root: 'http://bugsmash.wedinweb.no'
+					root: 'http://10.0.0.48:3001'
+					//root: 'http://bugsmash.wedinweb.no'
 				}
 			}());
 
@@ -1271,7 +1272,6 @@ BugSmash.reactComponents = (function () {
 							'url': '/bug/'+data.id
 						});
 						BugSmash.router.navigate('/', {trigger: true});
-						
 					},
 					data: $.param(postdata),
 					contentType: "application/x-www-form-urlencoded"
@@ -1401,7 +1401,7 @@ BugSmash.reactComponents = (function () {
 									
 				document.body.innerHTML+=html;
 				document.getElementsByClassName('screenshotwrap')[0].addEventListener('click', function (e) {
-				document.body.removeChild(this);
+					document.body.removeChild(this);
 				});
 			},
 			
@@ -1888,8 +1888,8 @@ window.onload = function () {
 	BugSmash.Core.start();
 	Backbone.history.start({pushState: true, root: "/"});
 	
-	//var href = document.location.href.replace('http://192.168.1.233:3001/', '');
-	var href = document.location.href.replace('http://bugsmash.wedinweb.no/', '');
+	var href = document.location.href.replace('http://10.0.0.48:3001/', '');
+	//var href = document.location.href.replace('http://bugsmash.wedinweb.no/', '');
 	console.info('Path: '+href);
 
 	BugSmash.router.navigate(href, {trigger: true});

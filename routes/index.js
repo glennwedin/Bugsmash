@@ -1,8 +1,8 @@
 var express = require('express');
 var router = express.Router();
 
-//var root = 'http://192.168.1.233:3001';
-var root = 'http://bugsmash.wedinweb.no';
+var root = 'http://10.0.0.48:3001';
+//var root = 'http://bugsmash.wedinweb.no';
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
