@@ -2,7 +2,8 @@ var gulp = require('gulp'),
 	compass = require('gulp-compass'),
 	uglify = require('gulp-uglify'),
 	concat = require('gulp-concat'),
-	react  = require('gulp-react'),
+	//react  = require('gulp-react'),
+	babel = require('gulp-babel'),
 	minifyCss = require('gulp-minify-css');
 
 
@@ -34,19 +35,25 @@ gulp.task('jsconcat', function () {
 		'src/js/vendor/perfect-scrollbar.js'
 	])
 	.pipe(concat('vendor.js'))
-	.pipe(gulp.dest('src/concat/'));
+	.pipe(uglify())
+	.pipe(gulp.dest('js/'));
 
+	/*
 	gulp.src([
 		'src/js/app.js'
 	])
 	.pipe(concat('app.js'))
 	.pipe(gulp.dest('src/concat/'));
+	*/
 	return gulp;
 });
 
 gulp.task('js', function() {
-	return gulp.src(['src/concat/*/*.js','src/concat/*.js'])
-	  .pipe(react())
+	return gulp.src(['src/js/app.js'])
+	  //.pipe(react())
+	  .pipe(babel({
+	   		presets: ['react']
+	   }))
 	  .pipe(uglify())
 	  .pipe(gulp.dest('js/'));
 });
@@ -60,6 +67,6 @@ gulp.task('jsx', function() {
 gulp.task('watch', function() {
     gulp.watch('src/scss/*.scss', ['sass']);
     gulp.watch('stylesheets/*.css', ['minify-css']);
-    gulp.watch(['src/js/*/*.js', 'src/js/*.js'], ['jsconcat']);
-    gulp.watch(['src/concat/*.js'], ['js']);
+    gulp.watch(['src/js/*/*.js', 'src/js/*.js'], ['jsconcat', 'js']);
+   // gulp.watch(['src/concat/*.js'], ['js']);
 });
